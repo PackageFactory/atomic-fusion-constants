@@ -4,6 +4,8 @@ namespace PackageFactory\AtomicFusion\Constants;
 use Neos\Flow\Annotations as Flow;
 
 /**
+ * A parser that can extract simple constant declarations from fusion code
+ *
  * @Flow\Scope("singleton")
  */
 class Parser
@@ -56,6 +58,14 @@ class Parser
 	 */
 	const PATTERN_FLOAT = '/^\s*-?\d+(\.\d+)?\s*$/';
 
+	/**
+	 * Extract all declared constants from the given source code and return the source code without
+	 * constant declarations as well as the extracted constants
+	 *
+	 * @param string $sourceCode
+	 * @param string $contextPathAndFilename
+	 * @return array
+	 */
 	public function extractConstants(string $sourceCode, string $contextPathAndFilename = '') : array
 	{
 		$lines = explode(PHP_EOL, $sourceCode);
@@ -82,7 +92,13 @@ class Parser
 		return [$alteredSourceCode, $constants];
 	}
 
-	protected function parseValue($value)
+	/**
+	 * Convert a given string value to a matching PHP primitive
+	 *
+	 * @param string $value
+	 * @return mixed
+	 */
+	protected function parseValue(string $value)
 	{
 		switch (true) {
 			case preg_match(self::PATTERN_SINGLE_QUOTE_STRING, $value, $matches):

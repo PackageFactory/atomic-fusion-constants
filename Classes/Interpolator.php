@@ -4,6 +4,8 @@ namespace PackageFactory\AtomicFusion\Constants;
 use Neos\Flow\Annotations as Flow;
 
 /**
+ * Replaces constant tokens in fusion code with their corresponding values
+ *
  * @Flow\Scope("singleton")
  */
 class Interpolator
@@ -16,6 +18,14 @@ class Interpolator
 	 */
 	const PATTERN_CONSTANT = '/const::(?P<name>[A-Z_][A-Z0-9_]*)/';
 
+	/**
+	 * Replace all ocurrences of constants in the given source code
+	 *
+	 * @param string $source
+	 * @param array $constants
+	 * @param string $contextPathAndFilename
+	 * @return string
+	 */
 	public function replaceConstants(string $source, array $constants, string $contextPathAndFilename = '') : string
 	{
 		return preg_replace_callback(
@@ -37,6 +47,12 @@ class Interpolator
 		);
 	}
 
+	/**
+	 * Sanitize a value before it is added to the source code
+	 *
+	 * @param mixed $value
+	 * @return mixed
+	 */
 	public function sanitizeValue($value)
 	{
 		if (is_string($value)) {

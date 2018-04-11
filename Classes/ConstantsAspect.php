@@ -5,6 +5,8 @@ use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Aop\JoinPointInterface;
 
 /**
+ * Enables constants in fusion and provides magic constants
+ *
  * @Flow\Aspect
  */
 class ConstantsAspect
