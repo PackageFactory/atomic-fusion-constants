@@ -25,7 +25,7 @@ class ConstantsAspectTest extends UnitTestCase
         $joinPoint->getMethodArgument('sourceCode')->willReturn('TheOriginalSource');
         $joinPoint->getMethodArgument('contextPathAndFilename')->willReturn('resource://Vendor.Site/Private/File.fusion');
 
-        $parser->extractConstants('TheOriginalSource')->willReturn([
+        $parser->extractConstants('TheOriginalSource', 'resource://Vendor.Site/Private/File.fusion')->willReturn([
             'TheAlteredSource',
             ['SOME' => 'constant']
         ]);
@@ -34,9 +34,10 @@ class ConstantsAspectTest extends UnitTestCase
             'SOME' => 'constant',
             '__FILE__' => 'resource://Vendor.Site/Private/File.fusion',
             '__DIR__' => 'resource://Vendor.Site/Private'
-        ])->willReturn('TheFinalSource');
+        ], 'resource://Vendor.Site/Private/File.fusion')->willReturn('TheFinalSource');
 
-        $joinPoint->setMethodArgument('sourceCode', 'TheFinalSource')->shouldBeCalled();
+        $joinPoint->setMethodArgument('sourceCode', 'TheFinalSource')
+            ->shouldBeCalled();
 
         $this->inject($constantsAspect, 'constantsParser', $parser->reveal());
         $this->inject($constantsAspect, 'constantsInterpolator', $interpolator->reveal());
@@ -59,7 +60,7 @@ class ConstantsAspectTest extends UnitTestCase
         $joinPoint->getMethodArgument('sourceCode')->willReturn('TheOriginalSource');
         $joinPoint->getMethodArgument('contextPathAndFilename')->willReturn('resource://Vendor.Site/Private/File.fusion');
 
-        $parser->extractConstants('TheOriginalSource')->willReturn([
+        $parser->extractConstants('TheOriginalSource', 'resource://Vendor.Site/Private/File.fusion')->willReturn([
             'TheAlteredSource',
             ['__FILE__' => 'forbidden']
         ]);
@@ -85,7 +86,7 @@ class ConstantsAspectTest extends UnitTestCase
         $joinPoint->getMethodArgument('sourceCode')->willReturn('TheOriginalSource');
         $joinPoint->getMethodArgument('contextPathAndFilename')->willReturn('resource://Vendor.Site/Private/File.fusion');
 
-        $parser->extractConstants('TheOriginalSource')->willReturn([
+        $parser->extractConstants('TheOriginalSource', 'resource://Vendor.Site/Private/File.fusion')->willReturn([
             'TheAlteredSource',
             ['__DIR__' => 'forbidden']
         ]);

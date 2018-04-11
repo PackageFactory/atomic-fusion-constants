@@ -56,16 +56,18 @@ class Parser
 	 */
 	const PATTERN_FLOAT = '/^\s*-?\d+(\.\d+)?\s*$/';
 
-	public function extractConstants(string $source, array &$constants = []) : array
+	public function extractConstants(string $sourceCode, string $contextPathAndFilename = '') : array
 	{
-		$lines = explode(PHP_EOL, $source);
-		$result = '';
+		$lines = explode(PHP_EOL, $sourceCode);
+		$alteredSourceCode = '';
+		$constants = [];
 
 		foreach($lines as $line) {
 			if (preg_match(self::PATTERN_CONSTANT_DECLARATION, $line, $matches)) {
 				if (array_key_exists($matches['name'], $constants)) {
 					throw new ParserException(
-						sprintf('Cannot redeclare constant "%s"', $matches['name']),
+						sprintf('Cannot redeclare constant "%s".', $matches['name']) .
+						($contextPathAndFilename ? sprintf(' (file: %s)', $contextPathAndFilename) : ''),
 						1523450350
 					);
 				}
@@ -74,10 +76,10 @@ class Parser
 				continue;
 			}
 
-			$result .= $line . PHP_EOL;
+			$alteredSourceCode .= $line . PHP_EOL;
 		}
 
-		return [$result, $constants];
+		return [$alteredSourceCode, $constants];
 	}
 
 	protected function parseValue($value)

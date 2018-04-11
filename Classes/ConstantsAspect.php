@@ -33,7 +33,7 @@ class ConstantsAspect
 		//
 		// Parse constants into $constants
 		//
-		list($sourceCode, $constants) = $this->constantsParser->extractConstants($sourceCode);
+		list($sourceCode, $constants) = $this->constantsParser->extractConstants($sourceCode, $contextPathAndFilename);
 
 		//
 		// Create Magic Constants
@@ -59,7 +59,7 @@ class ConstantsAspect
 		//
 		// Replace constants in remaining source code
 		//
-		$sourceCode = $this->constantsInterpolator->replaceConstants($sourceCode, $constants);
+		$sourceCode = $this->constantsInterpolator->replaceConstants($sourceCode, $constants, $contextPathAndFilename);
 		$joinPoint->setMethodArgument('sourceCode', $sourceCode);
 	}
 }
