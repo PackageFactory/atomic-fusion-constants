@@ -1,0 +1,42 @@
+const: BEGINNING_OF_THE_FILE = 'beginning'
+
+/**
+ * Comment
+ */
+const: AFTER_COMMENT_BUT_STILL_BEFORE_OTHER_STATEMENTS = 'before other statement'
+
+include: SomeFile.fusion
+
+const: AFTER_INCLUDE_DECLARATION = 'after include'
+
+namespace: Foo=Bar
+
+const: AFTER_NAMESPACE_DECELRATION = 'after namespace'
+
+prototype(SomePrototype) {
+	const: WITHIN_PROTOTYPE = 'within prototype'
+}
+
+const: AFTER_PROTOTYPE = 'after prototype'
+
+path {
+	const: WITHIN_PATH = 'within path'
+
+	deeply {
+		nested {
+			const: WITHIN_DEEPLY_NESTED_PATH = 'within deeply nested path'
+		}
+
+		const: AFTER_DEEPLY_NESTED_PATH = 'after deeply nested path'
+	}
+
+	const: END_OF_PATH = 'end of path'
+}
+
+const: AFTER_PATH = 'after path'
+
+/**
+ * Comment
+ */
+
+const: END_OF_THE_FILE = 'end'
