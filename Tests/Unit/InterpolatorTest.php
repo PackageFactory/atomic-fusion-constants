@@ -30,4 +30,14 @@ class InterpolatorTest extends UnitTestCase
 
         $this->assertContains('path = ${"resource://Neos.Demo/Test" + \'/foo.md\'}', $result);
     }
+
+    /**
+     * @test
+     * @expectedException \PackageFactory\AtomicFusion\Constants\InterpolatorException
+     */
+    public function shouldComplainIfConstantIsNotDeclared()
+    {
+        $fixture = file_get_contents(__DIR__ . '/../Fixtures/interpolation.fusion');
+        $this->constantsInterpolator->replaceConstants($fixture, []);
+    }
 }

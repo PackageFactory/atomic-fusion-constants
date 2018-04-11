@@ -8,15 +8,32 @@ use Neos\Flow\Annotations as Flow;
  */
 class Interpolator
 {
+	/**
+	 * Example:
+	 *    const::MY_CONSTANT
+	 *
+	 * @var string
+	 */
+	const PATTERN_CONSTANT = '/const::(?P<name>[A-Z][A-Z0-9_]*)/';
+
 	public function replaceConstants(string $source, array $constants) : string
 	{
-		$result = $source;
+		return preg_replace_callback(
+			self::PATTERN_CONSTANT,
+			function ($matches)	use ($constants) {
+				if (!array_key_exists($matches['name'], $constants)) {
+					throw new InterpolatorException(
+						sprintf('Constant "%s" has not been declared!', $matches['name']),
+						1523449249
+					);
+				}
 
-		foreach($constants as $key => $value) {
-			$result = str_replace(sprintf('const::%s', $key), $this->sanitizeValue($value), $result);
-		}
+				$value = $constants[$matches['name']];
 
-		return $result;
+				return $this->sanitizeValue($value);
+			},
+			$source
+		);
 	}
 
 	public function sanitizeValue($value)
