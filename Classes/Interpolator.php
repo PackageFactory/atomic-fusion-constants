@@ -14,7 +14,7 @@ class Interpolator
 	 *
 	 * @var string
 	 */
-	const PATTERN_CONSTANT = '/const::(?P<name>[A-Z][A-Z0-9_]*)/';
+	const PATTERN_CONSTANT = '/const::(?P<name>[A-Z_][A-Z0-9_]*)/';
 
 	public function replaceConstants(string $source, array $constants) : string
 	{

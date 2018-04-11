@@ -14,7 +14,7 @@ class Parser
 	 *
 	 * @var string
 	 */
-	const PATTERN_CONSTANT_DECLARATION = '/^\s*const:\s*(?P<name>[A-Z][A-Z0-9_]*)\s*=\s*(?P<value>.*)\s*$/';
+	const PATTERN_CONSTANT_DECLARATION = '/^\s*const:\s*(?P<name>[A-Z_][A-Z0-9_]*)\s*=\s*(?P<value>.*)\s*$/';
 
 	/**
 	 * Example:
