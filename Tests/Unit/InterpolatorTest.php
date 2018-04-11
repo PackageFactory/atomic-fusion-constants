@@ -6,8 +6,8 @@ use PackageFactory\AtomicFusion\Constants\Interpolator;
 
 class InterpolatorTest extends UnitTestCase
 {
-	/**
-     * @var Parser
+    /**
+     * @var Interpolator
      */
     protected $constantsInterpolator;
 
