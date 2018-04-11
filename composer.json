@@ -1,6 +1,7 @@
 {
     "description": "Language construct for constants as an addition to Neos.Fusion",
     "type": "neos-package",
+    "license": "GPL-3.0",
     "require": {
         "neos/fusion": "*"
     },
