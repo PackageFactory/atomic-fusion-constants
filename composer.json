@@ -1,0 +1,18 @@
+{
+    "description": "Language construct for constants as an addition to Neos.Fusion",
+    "type": "neos-package",
+    "require": {
+        "neos/fusion": "*"
+    },
+    "name": "packagefactory/atomicfusion-constants",
+    "autoload": {
+        "psr-4": {
+            "PackageFactory\\AtomicFusion\\Constants\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "PackageFactory.AtomicFusion.Constants"
+        }
+    }
+}
