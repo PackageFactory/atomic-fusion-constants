@@ -1,0 +1,3 @@
+prototype(ReplaceConstantsHere) {
+	path = ${const::MY_CONSTANT + '/foo.md'}
+}
