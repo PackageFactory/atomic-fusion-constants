@@ -1,0 +1,2 @@
+const: SOME_CONSTANT = 'Some Value'
+const: SOME_CONSTANT = 'Some Other Value'

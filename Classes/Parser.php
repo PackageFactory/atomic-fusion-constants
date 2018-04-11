@@ -63,6 +63,13 @@ class Parser
 
 		foreach($lines as $line) {
 			if (preg_match(self::PATTERN_CONSTANT_DECLARATION, $line, $matches)) {
+				if (array_key_exists($matches['name'], $constants)) {
+					throw new ParserException(
+						sprintf('Cannot redeclare constant "%s"', $matches['name']),
+						1523450350
+					);
+				}
+
 				$constants[$matches['name']] = $this->parseValue($matches['value']);
 				continue;
 			}

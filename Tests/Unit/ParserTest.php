@@ -253,4 +253,14 @@ class ParserTest extends UnitTestCase
         $this->assertSame('end', $constants['END_OF_THE_FILE']);
         $this->assertNotContains('const:', $sourceCode);
     }
+
+    /**
+     * @test
+     * @expectedException \PackageFactory\AtomicFusion\Constants\ParserException
+     */
+    public function shouldComplainIfConstantHasBeenRedeclared()
+    {
+        $fixture = file_get_contents(__DIR__ . '/../Fixtures/redeclaration.fusion');
+        $this->constantsParser->extractConstants($fixture);
+    }
 }
